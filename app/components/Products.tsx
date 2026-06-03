@@ -55,7 +55,37 @@ export default function Products(){
             setSearchTerm(input);
         },500);
         return ()=>clearTimeout(delayTimer);
-    },[input])
+    },[input]);
+
+    function handelOrder(){
+        alert("Work On Progress!");
+    };
+
+    const handelAddToCart = async(id:string)=>{
+        const res = await fetch(`/api/cart?id=${id}`,{
+            method:"PATCH",
+            headers:{"content-Type":"application/json"},
+            body:JSON.stringify({cart:true})
+        });
+        if(res.status){
+            alert("Item added to cart!");
+        }else{
+            alert("Error occered in adding item");
+        }
+    }
+    
+    const handelAddToWishlist = async(id:string)=>{
+        const res = await fetch(`/api/wishlist?id=${id}`,{
+            method:"PATCH",
+            headers:{"content-Type":"application/json"},
+            body:JSON.stringify({wishlist:true})
+        });
+        if(res.status){
+            alert("Item added to wishlist!");
+        }else{
+            alert("Error occered in adding item");
+        }
+    }
 
 
     return(
@@ -64,7 +94,7 @@ export default function Products(){
         <input type="text" onChange={(e)=>setInput(e.target.value)}
          className="border h-10 w-80 my-20 rounded-2xl px-2 text-center focus:shadow-xl hover:shadow-2xl  transition-all hover:scale-110 duration-300" placeholder="Search For Anything..."/>
         </div>
-        <div className="p-4 place-items-center">
+        <div className="p-4 place-items-center grow">
             {loading?
             <div className="flex justify-center bg-amber-100 w-[75%] rounded-2xl m-20 items-center h-45 font-bold">Loading...</div>
             :<div className={`${totalItems===0?"hidden":"grid"} sm:grid-cols-2 gap-10`}>{(searchedProducts.length === 0?products:searchedProducts).map((item:any)=>(
@@ -77,16 +107,16 @@ export default function Products(){
                             <div className="font-extralight text-sm">{item.description}</div>
                         </div>
                         <div className="text-center p-2">
-                            <button className="w-full p-1 rounded-2xl mt-2 bg-yellow-200 hover:bg-yellow-400 transition-all hover:scale-95 duration-400">Order now</button>
-                            <button className="w-full p-1 rounded-2xl mt-2 bg-green-200 hover:bg-green-400 transition-all hover:scale-95 duration-400">Add to cart</button>
-                            <button className="w-full p-1 rounded-2xl mt-2 bg-pink-200 hover:bg-pink-400 transition-all hover:scale-95 duration-400">Add to wishlist</button>
+                            <button className="w-full p-1 rounded-2xl mt-2 bg-yellow-200 hover:bg-yellow-400 transition-all hover:scale-95 duration-400" onClick={handelOrder}>Order now</button>
+                            <button className="w-full p-1 rounded-2xl mt-2 bg-green-200 hover:bg-green-400 transition-all hover:scale-95 duration-400" onClick={()=>(handelAddToCart(item._id))}>Add to cart</button>
+                            <button className="w-full p-1 rounded-2xl mt-2 bg-pink-200 hover:bg-pink-400 transition-all hover:scale-95 duration-400" onClick={()=>(handelAddToWishlist(item._id))}>Add to wishlist</button>
                         </div>
                     </div>
                 </div>
             ))}</div>}
         </div>
         <div className={`${totalItems===0?"flex":"hidden"} justify-center bg-amber-100 w-[75%] rounded-2xl m-20 items-center h-45 font-bold place-self-center`}>NO PRODUCT FOUND...</div>
-        <div className={`${totalItems===0?"hidden":"flex"} justify-between px-5 my-10`}>
+        <div className={`${totalItems===0?"hidden":"flex"} justify-between px-5 my-18`}>
             <button className={`${page===1?"hidden ":"flex"} bg-blue-400 hover:bg-blue-500 px-2 rounded items-center`} onClick={()=>setPage(prev=>prev-1)}>Previous</button>
             <div className="mt-5">{`Page ${page} of ${totalPages} have ${totalItems} items.`}</div>
             <button className={`${page===totalPages?"hidden ":"flex"} bg-blue-400 hover:bg-blue-500 px-2 rounded items-center`} onClick={()=>setPage(prev=>prev+1)}>Next</button>

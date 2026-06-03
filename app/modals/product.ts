@@ -5,7 +5,15 @@ const productSchema = new mongoose.Schema({
     description:String,
     price:Number,
     categories:Array,
-    image:String
+    image:String,
+    wishlist:{
+        type:Boolean,
+        default:false
+    },
+    cart:{
+        type:Boolean,
+        default:false
+    }
 });
 
 const Product = mongoose.models.Product || mongoose.model("Product",productSchema,"products");
