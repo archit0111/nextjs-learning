@@ -41,7 +41,7 @@ export async function POST(req:Request){
 
         return response;
 
-    }catch(e){
-        return NextResponse.json({success:false,status:500,message:e});
+    }catch(e:any){
+        return NextResponse.json({success:false,message: e.message || "An unexpected server error occurred"},{status:500});
     }
 }
