@@ -21,12 +21,6 @@ export default function Login(){
                 headers:{'content-Type':'application/json'},
                 body:JSON.stringify(user)
             });
-            if (!res.ok) {
-    const rawHTML = await res.text();
-    console.error("CRITICAL BACKEND ERROR:", rawHTML);
-    alert(`Server Error Status: ${res.status}. Press F12, open the console tab, and look at 'CRITICAL BACKEND ERROR' to see what broke!`);
-    return;
-}
             const data = await res.json();
             if(data.success){
                 alert(data.message);
