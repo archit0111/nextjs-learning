@@ -11,11 +11,11 @@ export async function POST(req:Request){
         const user = await req.json();
         const userExist = await User.findOne({email:user.email});
         if(!userExist){
-            return NextResponse.json({success:false,status:404,message:"Invalid Credentials! user not exist"});
+            return NextResponse.json({success:false,message:"Invalid Credentials! user not exist"},{status:404});
         }
         const  isPasswordCorrect = await bcrypt.compare(user.password,userExist.password)
         if(!isPasswordCorrect){
-            return NextResponse.json({success:false,status:401,message:"Invalid Credentials!"});
+            return NextResponse.json({success:false,message:"Invalid Credentials!"},{status:401});
         }
         const secret = new TextEncoder().encode(process.env.JWT_SECRET);
         const token = await new SignJWT({
@@ -27,7 +27,7 @@ export async function POST(req:Request){
         .setExpirationTime("1d")
         .sign(secret);
 
-        const response =  NextResponse.json({success:true,status:200,message:"User login Successfully!",userExist});
+        const response =  NextResponse.json({success:true,message:"User login Successfully!",userExist});
 
         response.cookies.set({
             name:"token",
