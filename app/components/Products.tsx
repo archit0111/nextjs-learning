@@ -25,7 +25,7 @@ export default function Products(){
                 setProducts(result.products||[]);
                 setLoading(false);
             }catch(e){
-                alert("Error in fetching producs!");
+                alert(`Error in fetching producs: ${e}`);
             }finally{
                 setLoading(false);
             }

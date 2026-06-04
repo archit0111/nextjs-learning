@@ -16,7 +16,7 @@ export default function Nav(){
             </div>
             <div className={`${links?'md:hidden hidden':"md:hidden"}`}><button onClick={()=>setLinks(prev=>!prev)}>&#9776;</button></div>
             <div className={`${links?"text-lg gap-4 items-center grid grid-cols-1 md:hidden":"hidden"}`}>
-                <Link href="/" className='px-2 hover:text-blue transition-all hover:scale-110 duration-75' onClick={()=>setLinks(prev=>!prev)}>Home</Link>
+                <Link href="/home" className='px-2 hover:text-blue transition-all hover:scale-110 duration-75' onClick={()=>setLinks(prev=>!prev)}>Home</Link>
                 <Link href="/cart" className='px-2 hover:text-blue transition-all hover:scale-110 duration-75' onClick={()=>setLinks(prev=>!prev)}>Cart</Link>
                 <Link href="/wishlist" className='px-2 hover:text-blue transition-all hover:scale-110 duration-75' onClick={()=>setLinks(prev=>!prev)}>Wishlist</Link>
                 <Link href="/account" className='px-2 hover:text-blue transition-all hover:scale-110 duration-75' onClick={()=>setLinks(prev=>!prev)}>Account</Link>
