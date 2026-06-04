@@ -26,7 +26,7 @@ export default function Signup(){
             const data = await res.json();
             if(res.status===201){
                 alert(data.message);
-                router.push("/login");
+                router.push("/home");
             }else{
                 alert(data.message);
             }
