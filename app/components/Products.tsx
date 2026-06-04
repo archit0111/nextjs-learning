@@ -65,7 +65,7 @@ export default function Products(){
         const res = await fetch(`/api/cart?id=${id}`,{
             method:"PATCH",
             headers:{"content-Type":"application/json"},
-            body:JSON.stringify({cart:true})
+            body:JSON.stringify({operation:"add"})
         });
         if(res.status){
             alert("Item added to cart!");
@@ -78,7 +78,7 @@ export default function Products(){
         const res = await fetch(`/api/wishlist?id=${id}`,{
             method:"PATCH",
             headers:{"content-Type":"application/json"},
-            body:JSON.stringify({wishlist:true})
+            body:JSON.stringify({operation:"add"})
         });
         if(res.status){
             alert("Item added to wishlist!");
