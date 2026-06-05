@@ -24,7 +24,7 @@ export default function Login(){
             const data = await res.json();
             if(data.success){
                 alert(data.message);
-                router.push("/home");
+                router.push("/login");
             }else{
                 alert(data.message);
             }
@@ -43,14 +43,14 @@ export default function Login(){
             </div>
         </div>
         <div className="mt-5 grow w-[75%] content-center self-center">
-            <div className="h-fit p-5 rounded-2xl bg-olive-300">
+            <div className="h-fit p-5 rounded-2xl sm:w-[75%] w-min place-self-center bg-olive-300">
                 <div className="bg-olive-400 rounded-2xl h-10 flex justify-center items-center font-bold text-2xl mb-5">Login</div>
                 <form>
                     <div className="flex w-full items-center gap-4 place-content-center mt-10 mb-4">
                         <label htmlFor="email" className="text-xl">Email:</label>
                         <input type="email" className="border p-1 px-1 ml-2 rounded" placeholder="example@gmail.com" onChange={(e)=>setEmail(e.target.value)} />
                     </div>
-                    <div className="flex w-full items-center gap-4 place-content-center mb-4">
+                    <div className="flex w-full items-center sm:gap-4 gap-2 place-content-center mb-4">
                         <label htmlFor="password" className="text-xl">Password:</label>
                         <input type="password" className="border p-1 px-1 ml-2 rounded" placeholder="Enter you password" onChange={(e)=>setPassword(e.target.value)}/>
                     </div>

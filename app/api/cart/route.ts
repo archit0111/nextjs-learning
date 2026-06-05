@@ -30,7 +30,7 @@ export async function PATCH(req:NextRequest){
             cart.items.pop({productId});
         }
         await cart.save();
-        return NextResponse.json({status:true,message:"Item added in cart successfully!"});
+        return NextResponse.json({success:true,message:"Item added in cart successfully!"});
 
     }catch(e){
         return NextResponse.json({success:false,message:`Some error occered in adding item in cart: ${e}`});

@@ -12,8 +12,8 @@ export async function GET(req:Request){
         const page = parseInt(searchParams.get("page") || "1");
         const skip=(page-1)*limit;
 
-        if(search===null){
-            const products = await Product.find({});
+        if(search===""){
+            const products = await Product.find({}).skip(skip).limit(limit);
             const totalProducts=await Product.countDocuments({})
             const totalPages = Math.ceil(totalProducts/limit);
             return NextResponse.json({success:true, products, pagination:{currentPage:page,totalPages,totalProducts}});

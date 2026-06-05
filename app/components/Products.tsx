@@ -23,7 +23,6 @@ export default function Products(){
                 });
                 const result  = await res.json();
                 setProducts(result.products||[]);
-                setLoading(false);
             }catch(e){
                 alert(`Error in fetching producs: ${e}`);
             }finally{
@@ -41,7 +40,6 @@ export default function Products(){
             });
             const result = await data.json();
             setSearchProducts(result.products);
-            setPage(result.pagination.currentPage);
             setTotalPages(result.pagination.totalPages)
             setTotalItems(result.pagination.totalProducts);
             setLoading(false);
@@ -53,6 +51,7 @@ export default function Products(){
         setLoading(true);
         const delayTimer = setTimeout(()=>{
             setSearchTerm(input);
+            setPage(1);
         },500);
         return ()=>clearTimeout(delayTimer);
     },[input]);
@@ -67,7 +66,7 @@ export default function Products(){
             headers:{"content-Type":"application/json"},
             body:JSON.stringify({operation:"add"})
         });
-        if(res.status){
+        if(res.status===200){
             alert("Item added to cart!");
         }else{
             alert("Error occered in adding item");
@@ -80,7 +79,7 @@ export default function Products(){
             headers:{"content-Type":"application/json"},
             body:JSON.stringify({operation:"add"})
         });
-        if(res.status){
+        if(res.status===200){
             alert("Item added to wishlist!");
         }else{
             alert("Error occered in adding item");

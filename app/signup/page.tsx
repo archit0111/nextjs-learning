@@ -26,7 +26,7 @@ export default function Signup(){
             const data = await res.json();
             if(res.status===201){
                 alert(data.message);
-                router.push("/home");
+                router.push("/");
             }else{
                 alert(data.message);
             }
@@ -44,7 +44,7 @@ export default function Signup(){
             </div>
         </div>
         <div className="mt-5 grow w-[75%] content-center self-center">
-            <div className="h-fit p-5 rounded-2xl bg-olive-300">
+            <div className="h-fit p-5 rounded-2xl sm:w-[75%] w-min place-self-center bg-olive-300">
                 <div className="bg-olive-400 rounded-2xl h-10 flex justify-center items-center font-bold text-2xl mb-5">SignUp</div>
                 <form>
                     <div className="flex w-full items-center gap-4 place-content-center mb-4 mt-10">
