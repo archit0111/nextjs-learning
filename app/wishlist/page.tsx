@@ -56,9 +56,9 @@ export default function Cart(){
         <div className="flex justify-between mx-3 pt-3 px-4 lg:mx-5">
             <div className="text-4xl w-[25%]">StoreAtDoor</div>
             <div className="text-lg gap-6 items-center flex">
-                <div className="font-xl">Wishlist</div>
             </div>
         </div>
+        <div className="text-2xl font-bold mt-10 ml-10">Wishlist</div>
         <div className="p-4 place-items-center grow content-center mt-10">
             {products.length===0?
             <div className={`flex justify-center bg-amber-100 w-[75%] rounded-2xl m-20 items-center h-45 font-bold place-self-center`}>NO PRODUCT FOUND...</div>
