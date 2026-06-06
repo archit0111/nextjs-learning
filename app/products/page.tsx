@@ -1,4 +1,5 @@
 "use client";
+import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
 
@@ -11,6 +12,7 @@ export default function Products(){
     const [totalPages,setTotalPages]=useState();
     const [totalItems,setTotalItems]=useState();
     const [searchTerm,setSearchTerm]=useState('');
+    const router = useRouter();
     
     
     useEffect(()=>{
@@ -98,7 +100,7 @@ export default function Products(){
             <div className="flex justify-center bg-amber-100 w-[75%] rounded-2xl m-20 items-center h-45 font-bold">Loading...</div>
             :<div className={`${totalItems===0?"hidden":"grid"} sm:grid-cols-2 gap-10`}>{(searchedProducts.length === 0?products:searchedProducts).map((item:any)=>(
                 <div key={item._id} className="place-items-center">
-                    <div className="p-4 py-5 bg-red-50 w-[80%] rounded-2xl shadow-2xl transition-all hover:-translate-y-1 duration-300">
+                    <div onClick={()=>router.push(`/products/${item._id}`)} className="p-4 py-5 bg-red-50 w-[80%] rounded-2xl shadow-2xl transition-all hover:-translate-y-1 duration-300">
                         <img src={item.image + "/300"} alt="item.image" className="text-center place-self-center transition-all hover:scale-105 duration-300 mb-3" />
                         <div className="pt-2 pl-2">
                             <div className="font-bold">Price : {`₹${item.price}`}</div>

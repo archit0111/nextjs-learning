@@ -1,7 +1,7 @@
 "use client"
 import Nav from "../components/Nav";
 import Footer from "../components/Footer";
-import Products from "../components/Products";
+import Products from "../products/page";
 export default function Home() {
   return (
     <>
