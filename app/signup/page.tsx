@@ -54,26 +54,26 @@ export default function Signup(){
             </div>
         </div>
         <div className="mt-5 grow w-[75%] content-center self-center">
-            <div className="h-fit p-5 rounded-2xl sm:w-[75%] w-min place-self-center bg-olive-300">
+            <div className="h-fit p-5 m-3 rounded-2xl sm:w-[75%] w-max place-self-center bg-olive-300">
                 <div className="bg-olive-400 rounded-2xl h-10 flex justify-center items-center font-bold text-2xl mb-5">SignUp</div>
                 <div className={error?"bg-red-300 rounded-xl h-fit py-4 w-[80%] justify-self-center text-center font-light mb-2":"hidden"}>{errors.map((e:any)=><p className="text-sm">{e}</p>)}</div>
                 <form>
                     <div  className="place-self-center">
-                    <div className="flex w-full items-center gap-4 pl-[5%] mb-4 mt-10">
-                        <label htmlFor="name" className="text-xl">Name:</label>
-                        <input type="text" className="border p-1 px-1 ml-2 rounded" placeholder="Enter you name" onChange={(e)=>setName(e.target.value)}/>
+                    <div className="flex w-full items-center sm:gap-4 pl-[5%] mt-10 mb-4">
+                        <label htmlFor="name" className="sm:text-xl">Name:</label>
+                        <input type="text" className="border sm:p-1 px-1 ml-2 rounded" placeholder="Enter you name" onChange={(e)=>setName(e.target.value)}/>
                     </div>
                     </div>
                     <div  className="place-self-center">
-                    <div className="flex w-full items-center gap-4 pl-[5%] mt-4 mb-4">
-                        <label htmlFor="email" className="text-xl">Email:</label>
-                        <input type="email" className="border p-1 px-1 ml-2 rounded" placeholder="example@gmail.com" onChange={(e)=>setEmail(e.target.value)} />
+                    <div className="flex w-full items-center sm:gap-4 pl-[4%] mt-4 mb-4">
+                        <label htmlFor="email" className="sm:text-xl">Email:</label>
+                        <input type="email" className="border sm:p-1 px-1 ml-2 rounded" placeholder="example@gmail.com" onChange={(e)=>setEmail(e.target.value)} />
                     </div>
                     </div>
                     <div  className="place-self-center">
-                    <div className="flex w-full items-center gap-4 pl-[5%] mb-4">
-                        <label htmlFor="password" className="text-xl">Password:</label>
-                        <input type="password" className="border p-1 px-1 ml-2 rounded" placeholder="Enter you password" onChange={(e)=>setPassword(e.target.value)}/>
+                    <div className="flex w-full items-center sm:gap-4 pl-[6%] mb-4">
+                        <label htmlFor="password" className="sm:text-xl">Password:</label>
+                        <input type="password" className="border sm:p-1 px-1 ml-2 rounded" placeholder="Enter you password" onChange={(e)=>setPassword(e.target.value)}/>
                     </div>
                     </div>
                     <div className="text-center"><button className="bg-green-400 hover:bg-green-500 p-1 md:w-[40%] w-[75%] rounded-xl transition-all mt-8 mb-4 focus:scale-95" onClick={(e)=>createUser(e)}>{loading?"Please wait...":"SignUp"}</button>

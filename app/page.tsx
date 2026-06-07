@@ -52,7 +52,7 @@ export default function Login(){
             </div>
         </div>
         <div className="mt-5 grow w-[75%] content-center self-center">
-            <div className="h-fit p-5 rounded-2xl sm:w-[75%] w-min place-self-center bg-olive-300">
+            <div className="h-fit p-5 m-5 rounded-2xl sm:w-[75%] w-min place-self-center bg-olive-300">
                 <div className="bg-olive-400 rounded-2xl h-10 flex justify-center items-center font-bold text-2xl mb-5">Login</div>
                 <div className={error?"bg-red-300 rounded-xl h-fit py-4 w-[80%] justify-self-center text-center font-light mb-2":"hidden"}>{errors.map((e:any)=><p className="text-sm">{e}</p>)}</div>
                 <form>
