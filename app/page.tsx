@@ -7,10 +7,14 @@ import { useRouter } from "next/navigation";
 export default function Login(){
     const [email,setEmail]=useState("");
     const [password,setPassword]=useState("");
+    const [loading,setLoading]=useState(false);
+    const [error,setError]=useState(false);
+    const [errors,setErrors]=useState<any>([]);
     const router=useRouter();
 
     const loginUser=async(e:any)=>{
         e.preventDefault();
+        setLoading(true);
         const user = {
             email:email,
             password:password
@@ -23,10 +27,15 @@ export default function Login(){
             });
             const data = await res.json();
             if(data.success){
-                alert(data.message);
+                setLoading(false);
                 router.push("/login");
+            }else if(res.status===400){
+                setErrors(data.errors);
+                setError(true);
+                setLoading(false);
             }else{
                 alert(data.message);
+                setLoading(false);
             }
         }catch(e){
             alert(`Some error occred in login: ${e}`);
@@ -45,6 +54,7 @@ export default function Login(){
         <div className="mt-5 grow w-[75%] content-center self-center">
             <div className="h-fit p-5 rounded-2xl sm:w-[75%] w-min place-self-center bg-olive-300">
                 <div className="bg-olive-400 rounded-2xl h-10 flex justify-center items-center font-bold text-2xl mb-5">Login</div>
+                <div className={error?"bg-red-300 rounded-xl h-fit py-4 w-[80%] justify-self-center text-center font-light mb-2":"hidden"}>{errors.map((e:any)=><p className="text-sm">{e}</p>)}</div>
                 <form>
                     <div  className="place-self-center">
                         <div className="flex w-full items-center gap-4 pl-[5%] mt-10 mb-4">
@@ -56,7 +66,7 @@ export default function Login(){
                         <input type="password" className="border p-1 px-1 ml-2 rounded" placeholder="Enter you password" onChange={(e)=>setPassword(e.target.value)}/>
                     </div>
                     </div>
-                    <div className="text-center"><button className="bg-green-400 hover:bg-green-500 p-1 md:w-[40%] w-[75%] rounded-xl transition-all mt-10 mb-4 focus:scale-95" onClick={(e)=>loginUser(e)}>Login</button>
+                    <div className="text-center"><button className="bg-green-400 hover:bg-green-500 p-1 md:w-[40%] w-[75%] rounded-xl transition-all mt-10 mb-4 focus:scale-95" onClick={(e)=>loginUser(e)}>{loading?"Please wait...":"Login"}</button>
                     <p className="font-extralight">New user? <Link href={"/signup"} className="text-blue-800 hover:font-bold">SignUp</Link></p>
                     </div>
                 </form>

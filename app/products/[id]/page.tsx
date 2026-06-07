@@ -69,7 +69,8 @@ export default function Discription(){
         <>
         <Nav/>
         <div className="mt-25 mx-4 place-content-center">
-            <div className="place-items-cente grid grid-cols-1 gap-4 sm:flex pl-2">
+            <div className={loading?"flex justify-center bg-amber-100 w-[75%] rounded-2xl m-20 items-center h-45 font-bold":"hidden"}>Loading...</div>
+            <div className="place-items-center grid grid-cols-1 gap-4 sm:flex pl-2">
                     <section className="h-fit w-fit p-4">
                         <img src={product.image+"/300"} alt={product.image} />
                     </section>

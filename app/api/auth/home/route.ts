@@ -3,17 +3,28 @@ import User from "@/app/modals/user";
 import { NextResponse } from "next/server";
 import bcrypt from "bcryptjs";
 import { SignJWT } from "jose";
+import { loginSchema } from "@/app/lib/validation";
 
 
 export async function POST(req:Request){
     try{
         await connectDB();
-        const user = await req.json();
-        const userExist = await User.findOne({email:user.email});
+        const body = await req.json();
+        const {error,value}=loginSchema.validate(body,{abortEarly:false});
+        if(error){
+            const errorMessages = error.details.map((detail)=>detail.message);
+            return NextResponse.json({
+                success:false,
+                message:"Validation Error",
+                errors:errorMessages
+            },{status:400});
+        }
+        const {email,password} = value;
+        const userExist = await User.findOne({email:email});
         if(!userExist){
             return NextResponse.json({success:false,message:"Invalid Credentials! user not exist"},{status:404});
         }
-        const  isPasswordCorrect = await bcrypt.compare(user.password,userExist.password)
+        const  isPasswordCorrect = await bcrypt.compare(password,userExist.password)
         if(!isPasswordCorrect){
             return NextResponse.json({success:false,message:"Invalid Credentials!"},{status:401});
         }
