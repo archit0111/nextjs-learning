@@ -24,7 +24,8 @@ export default function Cart(){
         alert("work in progres!");
     }
 
-    const handelRemoveFromCart = async(id:string)=>{
+    const handelRemoveFromCart = async(e:React.MouseEvent,id:string)=>{
+        e.stopPropagation();
         const res = await fetch(`/api/cart?id=${id}`,{
             method:"PATCH",
             headers:{"content-Type":"application/json"},
@@ -37,7 +38,8 @@ export default function Cart(){
         }
     }
     
-    const handelAddToWishlist = async(id:string)=>{
+    const handelAddToWishlist = async(e:React.MouseEvent,id:string)=>{
+        e.stopPropagation();
         const res = await fetch(`/api/wishlist?id=${id}`,{
             method:"PATCH",
             headers:{"content-Type":"application/json"},
@@ -62,7 +64,7 @@ export default function Cart(){
         <div className="p-4 place-items-center grow mt-40">
             {products.length===0?
             <div className={`flex justify-center bg-amber-100 w-[75%] rounded-2xl m-20 items-center h-45 font-bold place-self-center`}>NO PRODUCT FOUND...</div>
-            :<div className={`grid ${[products.length==1?null:"grid-cols-2 justify-items-center"]} gap-10`}>{(products.map((item:any)=>(
+            :<div className={`grid ${[products.length==1?null:"grid place-items-center sm:grid-cols-2 gap-10"]} gap-10`}>{(products.map((item:any)=>(
                 <div className="p-4 py-5 bg-red-50 w-[80%] rounded-2xl shadow-2xl transition-all hover:-translate-y-1 duration-300" key={item._id}>
                 <img src={item.productId?.image + "/300"} alt="item.image" className="text-center place-self-center transition-all hover:scale-105 duration-300 mb-3" />
                 <div className="pt-2 pl-2">
@@ -72,8 +74,8 @@ export default function Cart(){
                     </div>
                     <div className="text-center p-2">
                         <button className="w-full p-1 rounded-2xl mt-2 bg-yellow-200 hover:bg-yellow-400 transition-all hover:scale-95 duration-400" onClick={handelOrder}>Order now</button>
-                        <button className="w-full p-1 rounded-2xl mt-2 bg-green-200 hover:bg-green-400 transition-all hover:scale-95 duration-400" onClick={()=>(handelRemoveFromCart(item._id))}>Remove from cart</button>
-                        <button className="w-full p-1 rounded-2xl mt-2 bg-pink-200 hover:bg-pink-400 transition-all hover:scale-95 duration-400" onClick={()=>(handelAddToWishlist(item._id))}>Add to wishlist</button>
+                        <button className="w-full p-1 rounded-2xl mt-2 bg-green-200 hover:bg-green-400 transition-all hover:scale-95 duration-400" onClick={(e)=>(handelRemoveFromCart(e,item._id))}>Remove from cart</button>
+                        <button className="w-full p-1 rounded-2xl mt-2 bg-pink-200 hover:bg-pink-400 transition-all hover:scale-95 duration-400" onClick={(e)=>(handelAddToWishlist(e,item._id))}>Add to wishlist</button>
                     </div>
             </div>
             )))}</div>}

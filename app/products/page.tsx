@@ -26,7 +26,7 @@ export default function Products(){
                 const result  = await res.json();
                 setProducts(result.products||[]);
             }catch(e){
-                alert(`Error in fetching producs: ${e}`);
+                
             }finally{
                 setLoading(false);
             }
@@ -62,7 +62,8 @@ export default function Products(){
         alert("Work On Progress!");
     };
 
-    const handelAddToCart = async(id:string)=>{
+    const handelAddToCart = async(e:React.MouseEvent,id:string)=>{
+        e.stopPropagation();
         const res = await fetch(`/api/cart?id=${id}`,{
             method:"PATCH",
             headers:{"content-Type":"application/json"},
@@ -75,13 +76,14 @@ export default function Products(){
         }
     }
     
-    const handelAddToWishlist = async(id:string)=>{
+    const handelAddToWishlist = async(e:React.MouseEvent,id:string)=>{
+        e.stopPropagation();
         const res = await fetch(`/api/wishlist?id=${id}`,{
             method:"PATCH",
             headers:{"content-Type":"application/json"},
             body:JSON.stringify({operation:"add"})
         });
-        if(res.status===200){
+        if(res.status){
             alert("Item added to wishlist!");
         }else{
             alert("Error occered in adding item");
@@ -109,8 +111,8 @@ export default function Products(){
                         </div>
                         <div className="text-center p-2">
                             <button className="w-full p-1 rounded-2xl mt-2 bg-yellow-200 hover:bg-yellow-400 transition-all hover:scale-95 duration-400" onClick={handelOrder}>Order now</button>
-                            <button className="w-full p-1 rounded-2xl mt-2 bg-green-200 hover:bg-green-400 transition-all hover:scale-95 duration-400" onClick={()=>(handelAddToCart(item._id))}>Add to cart</button>
-                            <button className="w-full p-1 rounded-2xl mt-2 bg-pink-200 hover:bg-pink-400 transition-all hover:scale-95 duration-400" onClick={()=>(handelAddToWishlist(item._id))}>Add to wishlist</button>
+                            <button className="w-full p-1 rounded-2xl mt-2 bg-green-200 hover:bg-green-400 transition-all hover:scale-95 duration-400" onClick={(e)=>(handelAddToCart(e,item._id))}>Add to cart</button>
+                            <button className="w-full p-1 rounded-2xl mt-2 bg-pink-200 hover:bg-pink-400 transition-all hover:scale-95 duration-400" onClick={(e)=>(handelAddToWishlist(e,item._id))}>Add to wishlist</button>
                         </div>
                     </div>
                 </div>
