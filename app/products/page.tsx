@@ -58,8 +58,9 @@ export default function Products(){
         return ()=>clearTimeout(delayTimer);
     },[input]);
 
-    function handelOrder(){
-        alert("Work On Progress!");
+    const handelOrder = async (e:React.MouseEvent,id:any,)=>{
+        e.stopPropagation();
+        router.push(`/order?id=${id}`);
     };
 
     const handelAddToCart = async(e:React.MouseEvent,id:string)=>{
@@ -93,6 +94,8 @@ export default function Products(){
 
     return(
         <>
+        <h3 className="text-3xl text-orange-400 place-self-center mt-10 font-extrabold mb-2">Massiv Summur Sale!</h3>
+        <p className="text-red/80 place-self-center text-sm">Shop the exclusive deals right now</p>
         <div className="flex justify-center items-center">
         <input type="text" onChange={(e)=>setInput(e.target.value)}
          className="border h-10 w-80 my-20 rounded-2xl px-2 text-center focus:shadow-xl hover:shadow-2xl  transition-all hover:scale-110 duration-300" placeholder="Search For Anything..."/>
@@ -110,7 +113,7 @@ export default function Products(){
                             <div className="font-extralight text-sm">{item.description}</div>
                         </div>
                         <div className="text-center p-2">
-                            <button className="w-full p-1 rounded-2xl mt-2 bg-yellow-200 hover:bg-yellow-400 transition-all hover:scale-95 duration-400" onClick={handelOrder}>Order now</button>
+                            <button className="w-full p-1 rounded-2xl mt-2 bg-yellow-200 hover:bg-yellow-400 transition-all hover:scale-95 duration-400" onClick={(e)=>handelOrder(e,item._id)}>Order now</button>
                             <button className="w-full p-1 rounded-2xl mt-2 bg-green-200 hover:bg-green-400 transition-all hover:scale-95 duration-400" onClick={(e)=>(handelAddToCart(e,item._id))}>Add to cart</button>
                             <button className="w-full p-1 rounded-2xl mt-2 bg-pink-200 hover:bg-pink-400 transition-all hover:scale-95 duration-400" onClick={(e)=>(handelAddToWishlist(e,item._id))}>Add to wishlist</button>
                         </div>

@@ -1,10 +1,12 @@
 "use client"
 import { useEffect, useState } from "react"
 import Footer from "../components/Footer";
+import { useRouter } from "next/navigation";
 
 export default function Cart(){
 
     const [products,setProducts]=useState([]);
+    const router = useRouter();
 
     useEffect(()=>{
         const fetchProducts = async()=>{
@@ -20,10 +22,6 @@ export default function Cart(){
             fetchProducts();
     },[]);
 
-    const handelOrder = ()=>{
-        alert("work in progres!");
-    }
-
     const handelRemoveFromCart = async(e:React.MouseEvent,id:string)=>{
         e.stopPropagation();
         const res = await fetch(`/api/cart?id=${id}`,{
@@ -37,6 +35,11 @@ export default function Cart(){
             alert("Error occered in adding item");
         }
     }
+
+    const handelOrder = async (e:React.MouseEvent,id:any,)=>{
+        e.stopPropagation();
+        router.push(`/order?id=${id}`);
+    };
     
     const handelAddToWishlist = async(e:React.MouseEvent,id:string)=>{
         e.stopPropagation();
@@ -73,7 +76,7 @@ export default function Cart(){
                             <div className="font-extralight text-sm">{item.productId?.description}</div>
                     </div>
                     <div className="text-center p-2">
-                        <button className="w-full p-1 rounded-2xl mt-2 bg-yellow-200 hover:bg-yellow-400 transition-all hover:scale-95 duration-400" onClick={handelOrder}>Order now</button>
+                        <button className="w-full p-1 rounded-2xl mt-2 bg-yellow-200 hover:bg-yellow-400 transition-all hover:scale-95 duration-400" onClick={(e)=>handelOrder(e,item._id)}>Order now</button>
                         <button className="w-full p-1 rounded-2xl mt-2 bg-green-200 hover:bg-green-400 transition-all hover:scale-95 duration-400" onClick={(e)=>(handelRemoveFromCart(e,item._id))}>Remove from cart</button>
                         <button className="w-full p-1 rounded-2xl mt-2 bg-pink-200 hover:bg-pink-400 transition-all hover:scale-95 duration-400" onClick={(e)=>(handelAddToWishlist(e,item._id))}>Add to wishlist</button>
                     </div>

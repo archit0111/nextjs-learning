@@ -4,12 +4,14 @@ import Footer from "@/app/components/Footer";
 import Nav from "@/app/components/Nav"
 import { useParams } from "next/navigation"
 import { useEffect, useState } from "react"
+import { useRouter } from "next/navigation";
 
 export default function Discription(){
     const params = useParams();
     const productId = params.id;
     const [product,setProduct] = useState<any>({});
     const [loading, setLoading] = useState(true);
+    const router = useRouter();
 
     useEffect(()=>{
         if(!productId) return;
@@ -35,9 +37,6 @@ export default function Discription(){
         fetchProduct();
     },[]);
 
-    function handelOrder(){
-        alert("Work On Progress!");
-    };
 
     const handelAddToCart = async(e:React.MouseEvent,id:string)=>{
         e.stopPropagation();
@@ -84,7 +83,7 @@ export default function Discription(){
                     </section>
             </div>
             <div className="text-center mt-10 p-2">
-                <button className="w-full lg:block lg:place-self-center lg:w-[50%] p-1 rounded-2xl mt-2 bg-yellow-200 hover:bg-yellow-400 transition-all hover:scale-95 duration-400" onClick={handelOrder}>Order now</button>
+                <button className="w-full lg:block lg:place-self-center lg:w-[50%] p-1 rounded-2xl mt-2 bg-yellow-200 hover:bg-yellow-400 transition-all hover:scale-95 duration-400" onClick={()=>router.push(`/order?id=${product._id}`)}>Order now</button>
                 <button className="w-full lg:block lg:place-self-center lg:w-[50%] p-1 rounded-2xl mt-2 bg-green-200 hover:bg-green-400 transition-all hover:scale-95 duration-400" onClick={(e)=>(handelAddToCart(e,product._id))}>Add to cart</button>
                 <button className="w-full lg:block lg:place-self-center lg:w-[50%] p-1 rounded-2xl mt-2 bg-pink-200 hover:bg-pink-400 transition-all hover:scale-95 duration-400" onClick={(e)=>(handelAddToWishlist(e,product._id))}>Add to wishlist</button>
             </div>
